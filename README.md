@@ -1,1 +1,52 @@
 # Coursera_Capstone
+
+**Introduction**
+
+In an effort to reduce the frequency of car collisions in a community, an algorithm must be developed to predict the severity of an accident given the current weather, road and visibility conditions. In an application, drivers will be alerted of the severity level when conditions are above code 0.
+
+Thus, the Seattle government is going to attempt to prevent avoidable car accidents by employing methods that alert drivers, health system, and police to remind them to be more careful in critical situations. In most cases, not paying enough attention during driving, abusing drugs and alcohol or driving at very high speed are the main causes of occurring accidents that can be prevented by enacting harsher regulations. Besides the aforementioned reasons, weather, visibility, or road conditions are the major uncontrollable factors that can be prevented by revealing hidden patterns in the data and announcing warning to the local government, police and drivers on the targeted roads.
+
+Therefore, the target audience of the project is local Seattle government, police, rescue groups, and last but not least, car insurance institutes. The model and its results are going to provide some advice for the target audience to make insightful decisions for reducing the number of accidents and injuries for the city.
+
+**Data**
+
+The data was collected by the Seattle Police Department and Accident Traffic Records Department from 2004 to present. The data consists of 37 independent variables and 194,673 rows. The dependent variable, “SEVERITYCODE”, contains numbers that correspond to different levels of severity caused by an accident from 0 to 4.
+
+Severity codes are as follows:
+
+0 Little to no Probability (Clear Conditions) 1 Very Low Probability — Chance or Property Damage 2 Low Probability — Chance of Injury 3 Mild Probability — Chance of Serious Injury 4 High Probability — Chance of Fatality Furthermore, because there are null values in some records, the data needs to be preprocessed before any further processing.
+
+**Methodology**
+
+Exploratory data analysis was performed on the relevant categorical variables: address type, collision type, person count, pedestrian count, cyclist count, vehicle count, junction type, SDOT type, under the influence, weather, road conditions, light conditions, lane key, crosswalk key, and if a parked car was hit. The amount of categories in each variable ranged from a few to over a dozen. As a result, categories with less than a dozen variables were turned into countplots to better visualize the data. Statistical testing was not performed because the data revolved around categorical variables, not numerical ones.
+
+Unfortunately, key variables such as pedestrian right of way, inattentive drivers, and whether the car was speeding had a majority of null values. Therefore, they were dropped and not part of the analysis. However, it is likely that these variables play a key factor in vehicle accidents.
+
+**Results & Evaluation**
+
+Interestingly, the data shows that most accidents occur during the day with normal drivers and conditions. Most of the cases involved property damage. Moreover, as aspected most of the cases involved property damage.
+
+The highest category involves park cars, which aligns with what we already know. The majority of cases involves property damage, and this explains why. Hitting a parked car usually does not involve an injury.
+
+Furthermore, most vehicle accidents occur during the best driving times when it is clear, during the day, and the roads are dry.
+
+**Discussion**
+
+In the beginning of this notebook, we had categorical data that was of type 'object'. This is not a data type that we could have fed through an algorithm, so label encoding was used to created new classes that were of type int8; a numerical data type.
+
+After solving that issue we were presented with another - imbalanced data. As mentioned earlier, class 1 was nearly three times larger than class 2. The solution to this was downsampling the majority class with sklearn's resample tool. We downsampled to match the minority class exactly with 58188 values each.
+
+Once we analyzed and cleaned the data, it was then fed through three ML models; K-Nearest Neighbor, Decision Tree and Logistic Regression. Although the first two are ideal for this project, logistic regression made the most sense because of its binary nature.
+
+Evaluation metrics used to test the accuracy of our models were jaccard index, f-1 score and logloss for logistic regression. Choosing different k, max depth and hyperamater C values helped to improve our accuracy to be the best possible.
+
+The first striking observation has to do with the dependent variable. It seems highly unlikely that over the date range of the data no serious injuries or fatalities occurred. This may be a warning sign that the severity codes were somehow altered when the data set was being created, or that the sample data is incomplete and missing those reports. The main recommendation has to do with key variables such as pedestrian right of way, inattentive drivers, and if the car was speeding. In many of the records, these values were null. However, this data should be collected in order to draw new insights or create better prediction models.
+
+It was determined that most accidents occur during normal weather and road conditions. However, further data is needed to analyze this trend. It may be that these types of days constitute the highest number of days in the year. Therefore, further data on the weather needs to be analyzed. For example, it may be sunny for 100 days and then snow on 1 day. If you look at data for accidents, there may be 1000 accidents occur during sunny days and only 20 on snowy days. Really, the average number of accidents per weather type is much higher on snowy days. Though, because there are few days like that during the year the total number of accidents appears low.
+
+**Conclusion**
+
+Based on historical data from weather conditions pointing to certain classes, we can conclude that particular weather conditions have a somewhat impact on whether or not travel could result in property damage (class 1) or injury (class 2).
+
+Moreover, the data showed that most vehicle accidents occur during good conditions with normal drivers. This means it will be harder for the Seattle transportation department to mitigate accidents. However, as most accidents only involve property damage or minor injuries, there is not a serious problem that needs to be dealt with right away. This shows that infrastructures are being designed and operating properly. Therefore, the focus should be an emphasis on drivers being more careful.
+
